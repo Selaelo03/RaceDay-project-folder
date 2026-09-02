@@ -23,8 +23,8 @@ jobs:
 
       - name: Check required files
         run: |
-          test -f database/Raceday_data.sql
-          test -f docs/RaceDay_ERD.png
+          test -f database/RaceDay_batabase.sql
+          test -f docs/RaceDay_ERD.drawio.png
           test -f docs/API_Endpoint_Plan_RaceDay.pdf
 
       - name: Validation successful
