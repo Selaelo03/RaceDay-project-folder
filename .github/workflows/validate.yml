@@ -17,8 +17,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check required folders
-  run: |
-    test -d docs
+        run: |
+          test -d docs
 
       - name: Check required files
         run: |
