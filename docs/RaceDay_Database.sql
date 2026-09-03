@@ -1,6 +1,20 @@
 USE master;
 GO
 
+-- =============================================
+-- RESET DATABASE IF IT ALREADY EXISTS
+-- =============================================
+
+IF DB_ID('RaceDayDB') IS NOT NULL
+BEGIN
+    ALTER DATABASE RaceDayDB
+    SET SINGLE_USER
+    WITH ROLLBACK IMMEDIATE;
+
+    DROP DATABASE RaceDayDB;
+END;
+GO
+
 CREATE DATABASE RaceDayDB;
 GO
 
@@ -19,7 +33,10 @@ CREATE TABLE [User] (
     Email VARCHAR(100) NOT NULL UNIQUE,
     PasswordHash VARCHAR(255) NOT NULL,
     Role VARCHAR(20) NOT NULL,
-    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
+    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+
+    CONSTRAINT CK_User_Role
+        CHECK (Role IN ('Participant', 'Organiser'))
 );
 GO
 
@@ -30,7 +47,7 @@ GO
 
 CREATE TABLE Participant (
     ParticipantID INT IDENTITY(1,1) PRIMARY KEY,
-    UserID INT NOT NULL,
+    UserID INT NOT NULL UNIQUE,
     DateOfBirth DATE NOT NULL,
     PhoneNumber VARCHAR(20) NOT NULL,
 
@@ -47,7 +64,7 @@ GO
 
 CREATE TABLE Organiser (
     OrganiserID INT IDENTITY(1,1) PRIMARY KEY,
-    UserID INT NOT NULL,
+    UserID INT NOT NULL UNIQUE,
     OrganisationName VARCHAR(100) NOT NULL,
     PhoneNumber VARCHAR(20) NOT NULL,
 
@@ -74,7 +91,10 @@ CREATE TABLE [Event] (
 
     CONSTRAINT FK_Event_Organiser
         FOREIGN KEY (OrganiserID)
-        REFERENCES Organiser(OrganiserID)
+        REFERENCES Organiser(OrganiserID),
+
+    CONSTRAINT CK_Event_Distance
+        CHECK (Distance > 0)
 );
 GO
 
@@ -94,7 +114,17 @@ CREATE TABLE Category (
 
     CONSTRAINT FK_Category_Event
         FOREIGN KEY (EventID)
-        REFERENCES [Event](EventID)
+        REFERENCES [Event](EventID),
+
+    CONSTRAINT CK_Category_Age
+        CHECK (
+            MinimumAge IS NULL
+            OR MaximumAge IS NULL
+            OR MinimumAge <= MaximumAge
+        ),
+
+    CONSTRAINT CK_Category_Distance
+        CHECK (Distance IS NULL OR Distance > 0)
 );
 GO
 
@@ -143,7 +173,10 @@ CREATE TABLE Result (
         REFERENCES Enrollment(EnrollmentID),
 
     CONSTRAINT UQ_Result_Enrollment
-        UNIQUE (EnrollmentID)
+        UNIQUE (EnrollmentID),
+
+    CONSTRAINT CK_Result_Position
+        CHECK (FinishingPosition > 0)
 );
 GO
 
@@ -285,4 +318,18 @@ VALUES
     (3, '03:45:20', 1),
 
     (4, '00:28:15', 1);
+GO
+
+
+-- =============================================
+-- 14. VERIFY DATABASE
+-- =============================================
+
+SELECT * FROM [User];
+SELECT * FROM Participant;
+SELECT * FROM Organiser;
+SELECT * FROM [Event];
+SELECT * FROM Category;
+SELECT * FROM Enrollment;
+SELECT * FROM Result;
 GO
