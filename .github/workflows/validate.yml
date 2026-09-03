@@ -23,7 +23,7 @@ jobs:
 
       - name: Check required files
         run: |
-          test -f database/RaceDay_Database.sql
+          test -f docs/RaceDay_Database.sql
           test -f docs/RaceDay_ERD.drawio.png
           test -f docs/API_Endpoint_Plan_RaceDay.pdf
 
