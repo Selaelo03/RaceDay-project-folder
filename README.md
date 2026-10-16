@@ -178,9 +178,25 @@ It automatically restores dependencies, builds the .NET 10 solution, and runs th
 ![RaceDay Part 2 GitHub Actions Success](docs/RaceDay_Part2_GitHub_Actions.png)
 
 
+
 ## Demonstration Video
 
-**YouTube video:** Link to be added after recording and uploading the Part 2 demonstration.
+Watch the RaceDay Part 2 RESTful API demonstration:
+
+[RaceDay Part 2 - RESTful API Demonstration](https://youtu.be/6zH9VTIa4e8)
+
+The demonstration covers the project structure, JWT authentication,
+role-based authorization, API endpoints, Swagger documentation,
+unit tests, and the successful GitHub Actions workflow.
+
+Watch the RaceDay Part 2 RESTful API demonstration:
+
+[RaceDay Part 2 - RESTful API Demonstration](https://youtu.be/6zH9VTIa4e8)
+
+The demonstration covers the project structure, JWT authentication,
+role-based authorization, API endpoints, Swagger documentation,
+unit tests, and the successful GitHub Actions workflow.
+
 
 ## Repository Structure
 
