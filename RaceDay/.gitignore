@@ -1,0 +1,29 @@
+
+# Visual Studio temporary files
+.vs/
+*.user
+*.suo
+
+# .NET build output
+**/bin/
+**/obj/
+
+# Test results
+TestResults/
+**/TestResults/
+*.trx
+
+# IDE settings
+.idea/
+.vscode/
+
+# Operating system files
+Thumbs.db
+.DS_Store
+
+# Local secrets and configuration
+**/appsettings.Development.json
+**/secrets.json
+.env
+.env.*
+
