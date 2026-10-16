@@ -2,7 +2,7 @@
 name: RaceDay Part 2 - Build and Test
     defaults:
       run:
-        working-directory: RaceDay
+       working-directory: RaceDay
 
 on:
   push:
