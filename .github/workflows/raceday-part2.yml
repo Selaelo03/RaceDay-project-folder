@@ -1,15 +1,18 @@
 
-name: RaceDay Part 2 - Build and Test
+name: RaceDay Part 3 - API and MVC Build and Test
 
 on:
   push:
     branches:
       - main
       - part2-api-development
+      - part3-final-submission
+
   pull_request:
     branches:
       - main
       - part2-api-development
+      - part3-final-submission
 
 jobs:
   build-and-test:
@@ -24,17 +27,17 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Verify RaceDay structure
+      - name: Verify solution structure
         run: |
-          ls -la RaceDay
-          ls -la RaceDay/RaceDay.API
-          ls -la RaceDay/RaceDay.API.Tests
+          test -f RaceDay/RaceDay.slnx
+          test -f RaceDay/RaceDay.API/RaceDay.API.csproj
+          test -f RaceDay/RaceDay.Web/RaceDay.Web.csproj
 
       - name: Restore dependencies
         run: dotnet restore RaceDay/RaceDay.slnx
 
-      - name: Build RaceDay solution
+      - name: Build complete solution (API and MVC)
         run: dotnet build RaceDay/RaceDay.slnx --configuration Release --no-restore
 
-      - name: Run RaceDay unit tests
-        run: dotnet test RaceDay/RaceDay.API.Tests/RaceDay.API.Tests.csproj --configuration Release --no-restore
+      - name: Run automated tests
+        run: dotnet test RaceDay/RaceDay.slnx --configuration Release --no-build
