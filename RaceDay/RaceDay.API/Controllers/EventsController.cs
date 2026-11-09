@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +56,7 @@ namespace RaceDay.API.Controllers
 
         // GET: api/events
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _db.Events
@@ -78,6 +79,7 @@ namespace RaceDay.API.Controllers
 
         // GET: api/events/5
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetEvent(int id)
         {
             var ev = await _db.Events
